@@ -4,6 +4,9 @@ boolean fade = false;
 int fadeCount = 0;
 float introY1 = 0;
 float introY2 = 0;
+float introX3 = 18;
+float introY3 = 89;
+float introS3 = 0.6;
 void intro() {
   
   fill(0);
@@ -42,4 +45,17 @@ void intro() {
     fadeCount++;
     if(fadeCount == 60) {fadeCount = 0; mode = GAME;}
   }
+  
+  // A //
+  pushMatrix();
+    translate(introX3*scaleY, introY3*scaleY);
+    rotate(radians(-90));
+    scale(introS3*scaleY);
+    fill(0);
+    stroke(#6A7EFF);
+    strokeWeight(5);
+    triangle(35,0, -20,25, -20,-25);
+  popMatrix();
+  
+  
 }
