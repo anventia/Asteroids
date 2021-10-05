@@ -15,6 +15,8 @@ PFont MMD;  // Fonts
 
 // Game Variables //
 int score;
+Ship myShip;
+ArrayList<Bullet> myBullets;
 
 
 void setup() {
@@ -29,12 +31,22 @@ void setup() {
   // Font //
   MMD = createFont("MajorMonoDisplay-Regular.ttf", 100);
   textFont(MMD);
+  
+  
+  // Game //
+  myShip = new Ship();
+  myBullets = new ArrayList<Bullet>();
 }
 
 void draw() {
+  // Core functions //
   scaleWindow();
   switch(mode) {
     case INTRO: intro(); break;
     case GAME:  game();  break;
   }
+  
+  
+  // Game //
+  
 }
