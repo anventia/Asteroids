@@ -19,6 +19,8 @@ Ship myShip;
   ArrayList<gameObject> myObjects;
 
 final int bigAsteroid = 150;
+final int medAsteroid = 100;
+final int smlAsteroid = 50;
 final int numAsteroids = 5;
 
 
@@ -44,7 +46,7 @@ void setup() {
   
   int i = 0;
   while(i < numAsteroids) {
-    myObjects.add(new Asteroid());
+    myObjects.add(new Asteroid(bigAsteroid, random(0-bigAsteroid/2, width+bigAsteroid/2), random(0-bigAsteroid/2, height+bigAsteroid/2)));
     i++;
   }
 }

@@ -1,11 +1,25 @@
 class Asteroid extends gameObject {
+   
+  // Instance Variables //
+  int poly;  // number of sides on polygon
+  
   
   // Constructor //
-  Asteroid() {
+  Asteroid(int sz, float locX, float locY) {
     lives = 1;
-    location = new PVector(random(0-bigAsteroid/2, width+bigAsteroid/2), random(0-bigAsteroid/2, height+bigAsteroid/2));
+    size = sz;
+    switch(size) {  // Sets number of sides
+      case bigAsteroid: poly = 5; break;
+      case medAsteroid: poly = 4; break;
+      case smlAsteroid: poly = 3; break;
+    }
+    spinDirection = int(random(0,2));
+    spinSpeed = random(0.2, 0.7);
+    
+    location = new PVector(locX, locY);
     velocity = new PVector(0,1);
     velocity.rotate(radians(random(0,360)));
+    direction = new PVector(0,-0.1);
   }
   
   
@@ -19,12 +33,29 @@ class Asteroid extends gameObject {
     if(location.y < -bigAsteroid/2) location.y = height+bigAsteroid/2;
     if(location.y > height+bigAsteroid/2) location.y = -bigAsteroid/2;
     
+    // Spin //
+    if(spinDirection == 0) direction.rotate(radians(spinSpeed));  // Clockwise
+    if(spinDirection == 1) direction.rotate(radians(spinSpeed*-1));  // Counterclockwise
+    
+    // Detect collisions //
     int i = 0;
     while(i < myObjects.size()) {
       gameObject obj = myObjects.get(i);
       if(obj instanceof Bullet) {  // Is object Bullet?
-        if(dist(obj.location.x,obj.location.y, location.x,location.y) < bigAsteroid/2+obj.size/2) {  // Is bullet touching asteroid?
-          obj.lives = lives = 0; // Remove asteroid and bullet
+        if(dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Is bullet touching asteroid?
+          switch(size) {
+            case bigAsteroid: 
+              myObjects.add(new Asteroid(medAsteroid, location.x, location.y));  // Add two medium asteroids
+              myObjects.add(new Asteroid(medAsteroid, location.x, location.y));
+              break;
+            case medAsteroid:
+              myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));  // Add two small asteroids
+              myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
+              break;
+            case smlAsteroid:
+              break;  // Don't add any more
+          }
+          obj.lives = lives = 0; // Kills asteroid and bullet
         }
       }
       i++;
@@ -36,10 +67,12 @@ class Asteroid extends gameObject {
   void show() {
     pushMatrix();
       translate(location.x, location.y);
+      rotate(direction.heading());
       noFill();
       stroke(255);
-      strokeWeight(4);
-      circle(0,0, bigAsteroid);
+      strokeWeight(2);
+      circle(0,0, size);
+      polygon(0,0, size/2-4, poly);
     popMatrix();
   }
 }

@@ -57,7 +57,7 @@ void intro() {
     fill(0);
     stroke(#6A7EFF);
     strokeJoin(ROUND);
-    strokeWeight(5);
+    strokeWeight(4);
     triangle(35,0, -20,25, -20,-25);
   popMatrix();
   

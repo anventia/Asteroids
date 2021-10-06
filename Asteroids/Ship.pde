@@ -1,5 +1,9 @@
 class Ship extends gameObject {
   
+  // Instance Variables //
+  int gunTimer = 0;
+  
+  
   // Constructor //
   Ship() {
     lives = 3;
@@ -15,10 +19,12 @@ class Ship extends gameObject {
   void act() {
     super.act();   
     // Keyboard input //
-    if(up) {velocity.add(direction); myObjects.add(new Smoke()); }
+    if(up) {velocity.add(direction); myObjects.add(0, new Smoke());}
     if(down) velocity.sub(direction);
     if(left) direction.rotate(-radians(4));
     if(right) direction.rotate(radians(4));
+    
+    if(space && gunTimer > 20) {myObjects.add(0, new Bullet()); gunTimer = 0;}  // Adds bullets to BEGINNING of arrayList, so they get drawn under the ship.
     
     // Wraparound screen //
     if(location.x < -55) location.x = width+55;
@@ -27,6 +33,7 @@ class Ship extends gameObject {
     if(location.y > height+55) location.y = -55;
 
     velocity.mult(0.992);
+    gunTimer ++;
   }
   
   
@@ -37,7 +44,7 @@ class Ship extends gameObject {
       rotate(direction.heading());
       fill(0);
       stroke(#6A7EFF);
-      strokeWeight(5);
+      strokeWeight(4);
       strokeJoin(ROUND);
       
       triangle(35,0, -20,25, -20,-25);

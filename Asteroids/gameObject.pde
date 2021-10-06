@@ -3,6 +3,8 @@ class gameObject {
   // Instance Variables //
   int lives;
   int size;
+  int spinDirection;
+  float spinSpeed;
   
   PVector location;  // Location
   PVector velocity;  // Velocity
