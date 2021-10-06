@@ -9,9 +9,10 @@ class Asteroid extends gameObject {
     lives = 1;
     size = sz;
     switch(size) {  // Sets number of sides
-      case bigAsteroid: poly = 5; break;
-      case medAsteroid: poly = 4; break;
-      case smlAsteroid: poly = 3; break;
+      case bigAsteroid: poly = 6; break;
+      case medAsteroid: poly = 5; break;
+      case smlAsteroid: poly = 4; break;
+      case tnyAsteroid: poly = 3; break;
     }
     spinDirection = int(random(0,2));
     spinSpeed = random(0.2, 0.7);
@@ -53,6 +54,10 @@ class Asteroid extends gameObject {
               myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
               break;
             case smlAsteroid:
+              myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));  // Add two tiny asteroids
+              myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));
+              break;
+            case tnyAsteroid:
               break;  // Don't add any more
           }
           obj.lives = lives = 0; // Kills asteroid and bullet

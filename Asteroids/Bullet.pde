@@ -4,10 +4,11 @@ class Bullet extends gameObject {
   Bullet() {
     lives = 1;
     size = 5;
-    location = new PVector(myShip.location.x,myShip.location.y);
-    velocity = new PVector(myShip.direction.x, myShip.direction.y);
+    location = myShip.location.copy();
+    velocity = myShip.direction.copy();
     velocity.setMag(10);  
-    direction = new PVector(myShip.direction.x, myShip.direction.y);
+    velocity.add(myShip.velocity);
+    direction = myShip.direction.copy();
   }
   
   

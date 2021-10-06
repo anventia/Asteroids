@@ -18,10 +18,11 @@ int score;
 Ship myShip;
   ArrayList<gameObject> myObjects;
 
-final int bigAsteroid = 150;
-final int medAsteroid = 100;
-final int smlAsteroid = 50;
-final int numAsteroids = 5;
+final int bigAsteroid = 200;
+final int medAsteroid = 125;
+final int smlAsteroid = 75;
+final int tnyAsteroid = 50;
+final int numAsteroids = 3;
 
 
 
