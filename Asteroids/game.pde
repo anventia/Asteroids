@@ -4,34 +4,27 @@
 void game() {   
   
   background(0);
-  
-  // test //
-  //textAlign(CENTER);
-  //textSize(50*scaleY);
-  //fill(255);
-  //text("<test>", width/2,height/2); 
+   
+   
+  if(space) myObjects.add(0, new Bullet());  // Adds bullets to BEGINNING of arrayList, so they get drawn under the ship.
   
   
-  // Ship //
-  myShip.show();
-  myShip.act();
-  
-  
-  // Bullets //
+  // GameObjects //
   int i = 0;
-  while(i < myBullets.size()) {  // Bullets
-    Bullet b = myBullets.get(i);
-    float x = b.location.x;
-    float y = b.location.y;
-    b.show();
-    b.act();
+  while(i < myObjects.size()) {
+    gameObject obj = myObjects.get(i);
+    int l = obj.lives;
+    obj.show();
+    obj.act();
     
-    if(x < 0 || x > width || y < 0 || y > height) myBullets.remove(i);
-    
-    i++;
+    if(l == 0) myObjects.remove(i);  // die
+    else i++;
   }
   
-  if(space) myBullets.add(new Bullet());
+  
+
+  
+  
     
   // Fade In // 
   if(fade) {
@@ -42,4 +35,6 @@ void game() {
     fadeCount++;
     if(fadeCount == 60) {fade = false;}
   }
+  
+  
 }

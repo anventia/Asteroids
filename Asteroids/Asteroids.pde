@@ -16,7 +16,11 @@ PFont MMD;  // Fonts
 // Game Variables //
 int score;
 Ship myShip;
-ArrayList<Bullet> myBullets;
+  ArrayList<gameObject> myObjects;
+
+final int bigAsteroid = 150;
+final int numAsteroids = 5;
+
 
 
 void setup() {
@@ -35,7 +39,14 @@ void setup() {
   
   // Game //
   myShip = new Ship();
-  myBullets = new ArrayList<Bullet>();
+  myObjects = new ArrayList<gameObject>();
+  myObjects.add(myShip);
+  
+  int i = 0;
+  while(i < numAsteroids) {
+    myObjects.add(new Asteroid());
+    i++;
+  }
 }
 
 void draw() {
