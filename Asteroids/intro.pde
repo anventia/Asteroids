@@ -9,6 +9,7 @@ float introY3 = 88;
 float introS3 = 0.6;
 void intro() {
   
+  
   fill(0);
   noStroke();
   rectMode(CENTER);
@@ -40,6 +41,7 @@ void intro() {
     noStroke();
     fill(0,map(fadeCount, 0,59,0,255));
     rect(0,0, width,height);
+        
     introY1 = map(fadeCount, 0,59, 0,-height/2);
     introY2 = map(fadeCount, 0,59, 0,height/2);
     introX3 = map(fadeCount, 0,59, 18,0);
@@ -54,6 +56,7 @@ void intro() {
     translate(width/2+introX3*scaleY, height/2+introY3*scaleY);
     rotate(radians(-90));
     scale(introS3*scaleY);
+    
     fill(0);
     stroke(#6A7EFF);
     strokeJoin(ROUND);
@@ -62,4 +65,25 @@ void intro() {
   popMatrix();
   
   
+  
+  
+  //if(fade) {
+  //  myObjects.add(0, new Smoke(width/2+introX3*scaleY, height/2*introY3*scaleY, myShip.direction.copy()));
+    
+    
+  //}
+  
+
+  
+  if(up) {myObjects.add(0, new Smoke(myShip.location.x, myShip.location.y, myShip.direction.copy()));}
+  
+  int i = 0;
+  while(i < myObjects.size()) {
+      gameObject s = myObjects.get(i);
+      if(s instanceof Smoke) {
+        s.act();
+        s.show();
+      }
+      i++;
+  } 
 }

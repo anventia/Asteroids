@@ -17,7 +17,7 @@ class Asteroid extends gameObject {
     spinDirection = int(random(0,2));
     spinSpeed = random(0.2, 0.7);
     
-    location = new PVector(locX, locY);
+    location = new PVector(locX, locY);         
     velocity = new PVector(0,1);
     velocity.rotate(radians(random(0,360)));
     direction = new PVector(0,-0.1);
@@ -29,10 +29,10 @@ class Asteroid extends gameObject {
     super.act();
     
     // Wraparound screen //
-    if(location.x < -bigAsteroid/2) location.x = width+bigAsteroid/2;
-    if(location.x > width+bigAsteroid/2) location.x = -bigAsteroid/2;
-    if(location.y < -bigAsteroid/2) location.y = height+bigAsteroid/2;
-    if(location.y > height+bigAsteroid/2) location.y = -bigAsteroid/2;
+    if(location.x < -size/2) location.x = width+size/2;
+    if(location.x > width+size/2) location.x = -size/2;
+    if(location.y < -size/2) location.y = height+size/2;
+    if(location.y > height+size/2) location.y = -size/2;
     
     // Spin //
     if(spinDirection == 0) direction.rotate(radians(spinSpeed));  // Clockwise
