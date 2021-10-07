@@ -4,10 +4,9 @@ class Smoke extends gameObject {
   float spin;
   
   // Constructor //
-  Smoke(float x, float y, PVector v) {
+  Smoke(float x, float y, PVector v, float dir) {
     lives = 50;
     spin = 0;
-    //println(myShip.location.x);
     
     spinDirection = int(random(0,2));
     spinSpeed = random(1, 3);
@@ -16,7 +15,7 @@ class Smoke extends gameObject {
     velocity = v;
     velocity.setMag(-0.1);
     velocity.add(myShip.velocity);
-    velocity.rotate(radians(random(-5,5)));  // Random direction backwards from ship
+    velocity.rotate(dir);  // Random direction backwards from ship
 
     direction = myShip.direction.copy();
     
@@ -37,7 +36,6 @@ class Smoke extends gameObject {
   
   // Show //
   void show() {
-    println("smoke:");
     pushMatrix();
       translate(location.x, location.y);
       stroke(255);

@@ -42,26 +42,36 @@ class Asteroid extends gameObject {
     int i = 0;
     while(i < myObjects.size()) {
       gameObject obj = myObjects.get(i);
-      if(obj instanceof Bullet) {  // Is object Bullet?
-        if(dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Is bullet touching asteroid?
-          switch(size) {
-            case bigAsteroid: 
-              myObjects.add(new Asteroid(medAsteroid, location.x, location.y));  // Add two medium asteroids
-              myObjects.add(new Asteroid(medAsteroid, location.x, location.y));
-              break;
-            case medAsteroid:
-              myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));  // Add two small asteroids
-              myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
-              break;
-            case smlAsteroid:
-              myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));  // Add two tiny asteroids
-              myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));
-              break;
-            case tnyAsteroid:
-              break;  // Don't add any more
-          }
-          obj.lives = lives = 0; // Kills asteroid and bullet
+      if(obj instanceof Bullet && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Bullet Collisions
+        switch(size) {
+          case bigAsteroid: 
+            explode(location.x, location.y);
+            myObjects.add(new Asteroid(medAsteroid, location.x, location.y));  // Add two medium asteroids
+            myObjects.add(new Asteroid(medAsteroid, location.x, location.y));
+            break;
+          case medAsteroid:
+            myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));  // Add two small asteroids
+            myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
+            break;
+          case smlAsteroid:
+            myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));  // Add two tiny asteroids
+            myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));
+            break;
+          case tnyAsteroid:
+            break;  // Don't add any more
         }
+        obj.lives = lives = 0; // Kills asteroid and bullet
+        
+      } else if(obj instanceof Asteroid && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2 && dist(obj.location.x,obj.location.y, location.x,location.y) != 0) {  // Other asteroid collisions
+        float x2 = obj.location.x;  // Location of other asteroid
+        float y2 = obj.location.y;
+        
+        float dx = location.x-x2;  // Distance between asteroids
+        float dy = location.y-y2;
+
+        velocity.x = 1* dx/sqrt((dx*dx)+(dy*dy));
+        velocity.y = 1* dy/sqrt((dx*dx)+(dy*dy));
+       
       }
       i++;
     }
@@ -79,5 +89,17 @@ class Asteroid extends gameObject {
       circle(0,0, size);
       polygon(0,0, size/2-4, poly);
     popMatrix();
+  }
+  
+  
+  // Explode //
+  void explode(float x, float y) {
+    int i = 30;
+    int smokeTimer = 0;
+    while(i > 0) {
+      if(smokeTimer > 5) {myObjects.add(new Smoke(x,y, new PVector(0,1), radians(random(0,360)))); smokeTimer = 0;}
+      i++;
+      smokeTimer++;
+    }
   }
 }

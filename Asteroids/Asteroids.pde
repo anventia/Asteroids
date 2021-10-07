@@ -16,14 +16,15 @@ PFont MMD;  // Fonts
 
 // Game Variables //
 int score;
+int lives;
 Ship myShip;
-  ArrayList<gameObject> myObjects;
+ArrayList<gameObject> myObjects;
 
 final int bigAsteroid = 200;
 final int medAsteroid = 125;
 final int smlAsteroid = 75;
 final int tnyAsteroid = 50;
-final int numAsteroids = 3;
+final int numAsteroids = 4;
 
 
 

@@ -7,9 +7,10 @@ float introY2 = 0;
 float introX3 = 18;
 float introY3 = 88;
 float introS3 = 0.6;
+int smokeTimer = 0;
 void intro() {
   
-  
+  // Text //
   fill(0);
   noStroke();
   rectMode(CENTER);
@@ -35,6 +36,7 @@ void intro() {
   textSize(50*scaleY);
   text("pl y", width/2,height/2+100*scaleY+introY2);
   
+  
   // Fade In //
   if(fade) {
     rectMode(CORNER);
@@ -47,11 +49,26 @@ void intro() {
     introX3 = map(fadeCount, 0,59, 18,0);
     introY3 = map(fadeCount, 0,59, 88,0);
     introS3 = map(fadeCount, 0,59, 0.6,1);
+    
+    // Smoke //
+    if(smokeTimer > 5) {myObjects.add(0, new Smoke(myShip.location.x+introX3*scaleY, myShip.location.y+introY3*scaleY, myShip.direction.copy(), radians(random(-5,5)))); smokeTimer = 0;}
+    int i = 0;
+    while(i < myObjects.size()) {
+      gameObject s = myObjects.get(i);
+      if(s instanceof Smoke) {
+        s.act();
+        s.show();
+      }
+      i++;
+      
+    } 
+    smokeTimer++;
     fadeCount++;
     if(fadeCount == 60) {fadeCount = 0; mode = GAME;}
   }
   
-  // A //
+  
+  // Ship animation //
   pushMatrix();
     translate(width/2+introX3*scaleY, height/2+introY3*scaleY);
     rotate(radians(-90));
@@ -67,23 +84,4 @@ void intro() {
   
   
   
-  //if(fade) {
-  //  myObjects.add(0, new Smoke(width/2+introX3*scaleY, height/2*introY3*scaleY, myShip.direction.copy()));
-    
-    
-  //}
-  
-
-  
-  if(up) {myObjects.add(0, new Smoke(myShip.location.x, myShip.location.y, myShip.direction.copy()));}
-  
-  int i = 0;
-  while(i < myObjects.size()) {
-      gameObject s = myObjects.get(i);
-      if(s instanceof Smoke) {
-        s.act();
-        s.show();
-      }
-      i++;
-  } 
 }
