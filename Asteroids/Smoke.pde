@@ -2,19 +2,21 @@ class Smoke extends gameObject {
   
   // Instance Variables //
   float spin;
+  color clr;
   
   // Constructor //
   Smoke(float x, float y, PVector v, float dir) {
     lives = 50;
     spin = 0;
+    clr = smokeColors[int(random(0,smokeColors.length))];
     
     spinDirection = int(random(0,2));
     spinSpeed = random(1, 3);
     
     location = new PVector(x,y);
     velocity = v;
-    if(velocity.x == myShip.direction.copy().x && velocity.y == myShip.direction.copy().y) {  // Only for ship smoke
-      velocity.setMag(-0.1);
+    if(velocity.x == myShip.direction.copy().x && velocity.y == myShip.direction.copy().y) {  // Only for ship smoke, not explosion smoke
+      velocity.setMag(0.3);
       velocity.add(myShip.velocity);
     }
     velocity.rotate(dir);  // Random direction backwards from ship
@@ -43,7 +45,8 @@ class Smoke extends gameObject {
       //line(-width,0, width,0);  // Debug line to make smoke more visible
       rotate(direction.heading()+radians(180));
       noFill();
-      stroke(int(random(55,0)), 75, 100, map(lives, 50,0, 255,0));
+      
+      stroke(clr, map(lives, 50,0, 255,0));
       
       strokeWeight(3);
       rectMode(CENTER);

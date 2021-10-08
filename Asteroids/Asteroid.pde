@@ -100,7 +100,7 @@ class Asteroid extends gameObject {
     int i = 0;
     int smokeTimer = 0;
     while(i < 35) {
-      if(smokeTimer > 1) {myObjects.add(new Smoke(x,y, new PVector(0,random(0.5,2)), radians(random(0,360)))); smokeTimer = 0;}
+      if(smokeTimer > 1) {myObjects.add(new Smoke(x,y, new PVector(0,random(0.5,5)), radians(random(0,360)))); smokeTimer = 0;}
       i++;
       smokeTimer++;  // Timer can be increased
     }

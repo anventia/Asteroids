@@ -17,6 +17,7 @@ color[] smokeColors;
 
 // Game Variables //
 int score;
+float goal;
 int lives;
 Ship myShip;
 ArrayList<gameObject> myObjects;
@@ -25,8 +26,9 @@ final int bigAsteroid = 200;
 final int medAsteroid = 125;
 final int smlAsteroid = 75;
 final int tnyAsteroid = 50;
-final int numAsteroids = 4;
 
+final int numAsteroids = 4;
+final int numSizes = 4;
 
 
 void setup() {
@@ -36,14 +38,33 @@ void setup() {
   background(0);
   surface.setResizable(true);
   surface.setTitle("Asteroids");
-  
+   
   
   // Font //
   MMD = createFont("MajorMonoDisplay-Regular.ttf", 100);
   textFont(MMD);
   
+  // Colors //
+  smokeColors = new color[]{
+    #FF1717,  // Red
+    #FF7417, 
+    #FFB617, 
+    #FFE817,
+    #EFFF17
+  };
+  /*
+          a
+     a        a
+    a a      a a
+   aa aa    aa aa
+
+  */
   
   // Game //
+  score = 0;
+  goal = numAsteroids * pow(2, numSizes)-1;
+  println(goal);
+  
   myShip = new Ship();
   myObjects = new ArrayList<gameObject>();
   myObjects.add(myShip);
