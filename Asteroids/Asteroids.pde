@@ -13,6 +13,7 @@ final int GAMEOVER = 3;
 
 PFont MMD;  // Fonts
 
+color[] smokeColors;
 
 // Game Variables //
 int score;

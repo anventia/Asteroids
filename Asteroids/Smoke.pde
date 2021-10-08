@@ -13,10 +13,11 @@ class Smoke extends gameObject {
     
     location = new PVector(x,y);
     velocity = v;
-    velocity.setMag(-0.1);
-    velocity.add(myShip.velocity);
+    if(velocity.x == myShip.direction.copy().x && velocity.y == myShip.direction.copy().y) {  // Only for ship smoke
+      velocity.setMag(-0.1);
+      velocity.add(myShip.velocity);
+    }
     velocity.rotate(dir);  // Random direction backwards from ship
-
     direction = myShip.direction.copy();
     
   }
@@ -42,11 +43,14 @@ class Smoke extends gameObject {
       //line(-width,0, width,0);  // Debug line to make smoke more visible
       rotate(direction.heading()+radians(180));
       noFill();
-      stroke(255, map(lives, 50,0, 255,100));
-      strokeWeight(1);
+      stroke(int(random(55,0)), 75, 100, map(lives, 50,0, 255,0));
+      
+      strokeWeight(3);
       rectMode(CENTER);
       //rect(0,0, 10,10);
-      polygon(0,0, 10, int(map(lives, 50,0, 12,3)));
+      int n = int(map(lives, 50,15, 12,3));
+      if(n < 3) n = 3;
+      polygon(0,0, 10, n);
     popMatrix();
   }
   

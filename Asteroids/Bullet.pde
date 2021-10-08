@@ -2,7 +2,7 @@ class Bullet extends gameObject {
   
   // Constructor //
   Bullet() {
-    lives = 1;
+    lives = 100;
     size = 5;
     location = myShip.location.copy();
     velocity = myShip.direction.copy();
@@ -16,7 +16,14 @@ class Bullet extends gameObject {
   void act() {   
     super.act();
     
-    if(location.x < 0 || location.x > width || location.y < 0 || location.y > height) lives = 0;
+    // Wraparound screen //
+    if(location.x < size) location.x = width+size;
+    if(location.x > width+size) location.x = -size;
+    if(location.y < -size) location.y = height+size;
+    if(location.y > height+size) location.y = -size;
+    
+    
+    lives --;
   }
   
   

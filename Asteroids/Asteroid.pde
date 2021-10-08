@@ -50,14 +50,17 @@ class Asteroid extends gameObject {
             myObjects.add(new Asteroid(medAsteroid, location.x, location.y));
             break;
           case medAsteroid:
+            explode(location.x, location.y);
             myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));  // Add two small asteroids
             myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
             break;
           case smlAsteroid:
+            explode(location.x, location.y);
             myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));  // Add two tiny asteroids
             myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));
             break;
           case tnyAsteroid:
+            explode(location.x, location.y);
             break;  // Don't add any more
         }
         obj.lives = lives = 0; // Kills asteroid and bullet
@@ -94,12 +97,12 @@ class Asteroid extends gameObject {
   
   // Explode //
   void explode(float x, float y) {
-    int i = 30;
+    int i = 0;
     int smokeTimer = 0;
-    while(i > 0) {
-      if(smokeTimer > 5) {myObjects.add(new Smoke(x,y, new PVector(0,1), radians(random(0,360)))); smokeTimer = 0;}
+    while(i < 35) {
+      if(smokeTimer > 1) {myObjects.add(new Smoke(x,y, new PVector(0,random(0.5,2)), radians(random(0,360)))); smokeTimer = 0;}
       i++;
-      smokeTimer++;
+      smokeTimer++;  // Timer can be increased
     }
   }
 }
