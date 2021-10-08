@@ -97,6 +97,7 @@ class Asteroid extends gameObject {
   
   // Explode //
   void explode(float x, float y) {
+    score++;
     int i = 0;
     int smokeTimer = 0;
     while(i < 35) {

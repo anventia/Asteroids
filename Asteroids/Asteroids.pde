@@ -17,7 +17,7 @@ color[] smokeColors;
 
 // Game Variables //
 int score;
-float goal;
+int goal;
 int lives;
 Ship myShip;
 ArrayList<gameObject> myObjects;
@@ -27,7 +27,7 @@ final int medAsteroid = 125;
 final int smlAsteroid = 75;
 final int tnyAsteroid = 50;
 
-final int numAsteroids = 4;
+final int numAsteroids = 1;
 final int numSizes = 4;
 
 
@@ -62,7 +62,7 @@ void setup() {
   
   // Game //
   score = 0;
-  goal = numAsteroids * pow(2, numSizes)-1;
+  goal = int(numAsteroids * pow(2, numSizes)-1);
   println(goal);
   
   myShip = new Ship();

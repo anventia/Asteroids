@@ -16,6 +16,15 @@ void game() {
     if(l == 0) myObjects.remove(i);  // die
     else i++;
   }
+  
+  
+  // HUD //
+  fill(255);
+  textAlign(RIGHT);
+  textSize(35);
+  text(score+" / "+goal, width-5*scaleX, height-20*scaleY);
+  
+  
     
   // Fade In // 
   if(fade) {

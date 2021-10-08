@@ -22,7 +22,8 @@ class Ship extends gameObject {
   void act() {
     super.act();   
     // Keyboard input //
-    if(up) {velocity.add(direction); if(smokeTimer > 5) {myObjects.add(0, new Smoke(myShip.location.x, myShip.location.y, myShip.direction.copy(), radians(random(-5,5)))); smokeTimer = 0;}}
+    if(up) {velocity.add(direction); if(smokeTimer > 5) {myObjects.add(0, new Smoke(myShip.location.x, myShip.location.y, myShip.direction.copy(), radians(random(-7,7
+  )))); smokeTimer = 0;}}
     if(down) velocity.sub(direction);
     if(left) direction.rotate(-radians(4));
     if(right) direction.rotate(radians(4));
