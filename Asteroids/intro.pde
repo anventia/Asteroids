@@ -19,7 +19,7 @@ void intro() {
   textAlign(CENTER);
   textSize(100*scaleY);
   fill(255);
-  text("AsTeRoidS", width/2,height/2+introY1);   
+  text("AsTeRoidS", width/2,height/2+introY1);  // Title text
     
   fill(0);
   noStroke();
@@ -34,15 +34,27 @@ void intro() {
     
   fill(255);
   textSize(50*scaleY);
-  text("pl y", width/2,height/2+100*scaleY+introY2);
+  text("pl y", width/2,height/2+100*scaleY+introY2);  // Play button text
   
-  
-  // Fade In //
-  if(fade) {
+  // Fade //
+  if(fade && score >= goal) {  // Fade from gameOver screen
+    shipAnimation();
+    stroke(255);
+    strokeWeight(10);
+    rectMode(CORNER);
+    noStroke();
+    fill(0,map(fadeCount, 0,59,255,0));
+    rect(0,0, width,height);
+    println(fadeCount);
+    fadeCount++;
+    if(fadeCount == 60) {score = 0; fade = false;}
+    
+  } else if(fade && score != goal) {  // Fade to game screen
     rectMode(CORNER);
     noStroke();
     fill(0,map(fadeCount, 0,59,0,255));
     rect(0,0, width,height);
+    
         
     introY1 = map(fadeCount, 0,59, 0,-height/2);
     introY2 = map(fadeCount, 0,59, 0,height/2);
@@ -62,26 +74,29 @@ void intro() {
       i++;
       
     } 
+    shipAnimation();
     smokeTimer++;
     fadeCount++;
     if(fadeCount == 60) {fadeCount = 0; mode = GAME;}
   }
   
-  
-  // Ship animation //
-  pushMatrix();
-    translate(width/2+introX3*scaleY, height/2+introY3*scaleY);
-    rotate(radians(-90));
-    scale(introS3*scaleY);
-    
-    fill(0);
-    stroke(#6A7EFF);
-    strokeJoin(ROUND);
-    strokeWeight(4);
-    triangle(35,0, -20,25, -20,-25);
-  popMatrix();
-  
+  if(fade == false) shipAnimation();
   
   
   
 }
+
+void shipAnimation() {
+    // Ship animation //
+    pushMatrix();
+      translate(width/2+introX3*scaleY, height/2+introY3*scaleY);
+      rotate(radians(-90));
+      scale(introS3*scaleY);
+      
+      fill(0);
+      stroke(#6A7EFF);
+      strokeJoin(ROUND);
+      strokeWeight(4);
+      triangle(35,0, -20,25, -20,-25);
+    popMatrix();
+  }

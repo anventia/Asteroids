@@ -72,7 +72,7 @@ class Asteroid extends gameObject {
         float dx = location.x-x2;  // Distance between asteroids
         float dy = location.y-y2;
 
-        velocity.x = 1* dx/sqrt((dx*dx)+(dy*dy));
+        velocity.x = 1* dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
         velocity.y = 1* dy/sqrt((dx*dx)+(dy*dy));
        
       }

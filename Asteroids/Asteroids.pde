@@ -15,14 +15,17 @@ PFont MMD;  // Fonts
 
 color[] smokeColors;
 
+
 // Game Variables //
 int score;
 int goal;
 int lives;
+boolean win;
+
 Ship myShip;
 ArrayList<gameObject> myObjects;
 
-final int bigAsteroid = 200;
+final int bigAsteroid = 200;  // Asteroids
 final int medAsteroid = 125;
 final int smlAsteroid = 75;
 final int tnyAsteroid = 50;
@@ -46,30 +49,43 @@ void setup() {
   
   // Colors //
   smokeColors = new color[]{
-    #FF1717,  // Red
+    #FF1717,
     #FF7417, 
     #FFB617, 
     #FFE817,
     #EFFF17
   };
-  /*
-          a
-     a        a
-    a a      a a
-   aa aa    aa aa
-
-  */
+  
   
   // Game //
-  score = 0;
-  goal = int(numAsteroids * pow(2, numSizes)-1);
-  println(goal);
+  goal = int(numAsteroids * (pow(2, numSizes)-1));  // Calculates total number of asteroids that will appear
   
-  myShip = new Ship();
+  myShip = new Ship();  // Ship
   myObjects = new ArrayList<gameObject>();
   myObjects.add(myShip);
   
-  int i = 0;
+  score = 0;
+  initGame();
+}
+
+
+// Initialize game //
+void initGame() {
+  lives = 3;
+  
+  introY1 = 0;  // Reset intro animations
+  introY2 = 0;
+  introX3 = 18;
+  introY3 = 88;
+  introS3 = 0.6;
+  
+  myShip.location.x = width/2;  // Reset ship location, velocity, and direction
+  myShip.location.y = height/2;
+  myShip.velocity.x = myShip.velocity.y = 0;
+  myShip.direction.x = 0;
+  myShip.direction.y = -0.1;
+  
+  int i = 0;  // Add asteroids
   while(i < numAsteroids) {
     myObjects.add(new Asteroid(bigAsteroid, random(0-bigAsteroid/2, width+bigAsteroid/2), random(0-bigAsteroid/2, height+bigAsteroid/2)));
     i++;
@@ -80,11 +96,8 @@ void draw() {
   // Core functions //
   scaleWindow();
   switch(mode) {
-    case INTRO: intro(); break;
-    case GAME:  game();  break;
+    case INTRO:    intro();    break;
+    case GAME:     game();     break;
+    case GAMEOVER: gameOver(); break;
   }
-  
-  
-  // Game //
-  
 }

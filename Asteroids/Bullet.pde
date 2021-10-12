@@ -20,7 +20,7 @@ class Bullet extends gameObject {
     if(location.x < size) location.x = width+size;
     if(location.x > width+size) location.x = -size;
     if(location.y < -size) location.y = height+size;
-    if(location.y > height+size) location.y = -size;
+    if(location.y > height+size) location.y = -size;  
     
     
     lives --;

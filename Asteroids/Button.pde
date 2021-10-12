@@ -37,18 +37,21 @@ boolean button(float x,float y, float w,float h, float r, String mode, color c, 
   return false;
 }
 
-void highlight(float x,float y, float w,float h, float r, color c) {
+
+// Highlight options //
+
+void highlight(float x,float y, float w,float h, float r, color c) {  // Highlight Fill
   fill(c);
   rect(x,y, w,h, r);  // Box
 }
 
-void buttonPop(float x,float y, float w,float h, float r, float d) {
+void buttonPop(float x,float y, float w,float h, float r, float d) {  // Highlight Size
   w += d/2;
   h += d/2;
   rect(x,y, w,h, r);  // Box
 }
 
-void hStroke(float x,float y, float w,float h, float r, color c) {
+void hStroke(float x,float y, float w,float h, float r, color c) {  // Highlight Stroke
   stroke(c);
   rect(x,y, w,h, r);  // Box
 }
