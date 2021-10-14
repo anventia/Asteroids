@@ -25,19 +25,19 @@ void intro() {
   noStroke();
   
   rectMode(CENTER);
-  rect(width/2,height/2+83*scaleY+introY2, 220*scaleY,100*scaleY);
+  rect(width/2,height/2+83*scaleY+introY2, 370*scaleY,100*scaleY);
     
   fill(0);
   stroke(0);
   strokeWeight(2*scaleY);
-  if(button(width/2,height/2+83*scaleY+introY2, 200*scaleY,75*scaleY, 2*scaleY, "stroke", 255, 0) && fade == false) {fade = true; fadeCount = 0;} else {mouseClick = false;}  // If button clicked, fade, then go to game mode
+  if(button(width/2,height/2+83*scaleY+introY2, 350*scaleY,75*scaleY, 2*scaleY, "stroke", 255, 0) && fade == false) {fade = true; fadeCount = 0;} else {mouseClick = false;}  // If button clicked, fade, then go to game mode
     
   fill(255);
   textSize(50*scaleY);
-  text("pl y", width/2,height/2+100*scaleY+introY2);  // Play button text
+  text("- pl y -", width/2,height/2+100*scaleY+introY2);  // Play button text
   
   // Fade //
-  if(fade && score >= goal) {  // Fade from gameOver screen
+  if(fade && gameend == true) {  // Fade from gameOver screen
     shipAnimation();
     stroke(255);
     strokeWeight(10);
@@ -45,11 +45,10 @@ void intro() {
     noStroke();
     fill(0,map(fadeCount, 0,59,255,0));
     rect(0,0, width,height);
-    println(fadeCount);
     fadeCount++;
-    if(fadeCount == 60) {score = 0; fade = false;}
+    if(fadeCount == 60) {fade = false; gameend = false; }
     
-  } else if(fade && score != goal) {  // Fade to game screen
+  } else if(fade && gameend == false) {  // Fade to game screen
     rectMode(CORNER);
     noStroke();
     fill(0,map(fadeCount, 0,59,0,255));
@@ -77,7 +76,7 @@ void intro() {
     shipAnimation();
     smokeTimer++;
     fadeCount++;
-    if(fadeCount == 60) {fadeCount = 0; mode = GAME;}
+    if(fadeCount == 60) {fadeCount = 0; gameend = false; mode = GAME;}
   }
   
   if(fade == false) shipAnimation();

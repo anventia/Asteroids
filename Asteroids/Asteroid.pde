@@ -42,7 +42,11 @@ class Asteroid extends gameObject {
     int i = 0;
     while(i < myObjects.size()) {
       gameObject obj = myObjects.get(i);
-      if(obj instanceof Bullet && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Bullet Collisions
+      float x2 = obj.location.x;  // Location of other object
+      float y2 = obj.location.y; 
+      float dx = location.x-x2;  // Distance between objects
+      float dy = location.y-y2;
+      if(obj instanceof Bullet && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Bullet collisions
         switch(size) {
           case bigAsteroid: 
             explode(location.x, location.y);
@@ -65,16 +69,16 @@ class Asteroid extends gameObject {
         }
         obj.lives = lives = 0; // Kills asteroid and bullet
         
-      } else if(obj instanceof Asteroid && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2 && dist(obj.location.x,obj.location.y, location.x,location.y) != 0) {  // Other asteroid collisions
-        float x2 = obj.location.x;  // Location of other asteroid
-        float y2 = obj.location.y;
-        
-        float dx = location.x-x2;  // Distance between asteroids
-        float dy = location.y-y2;
-
-        velocity.x = 1* dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
-        velocity.y = 1* dy/sqrt((dx*dx)+(dy*dy));
+      } else if(obj instanceof Asteroid && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2 && dist(obj.location.x,obj.location.y, location.x,location.y) != 0) {  // Asteroid collisions
+        velocity.x = 1*dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
+        velocity.y = 1*dy/sqrt((dx*dx)+(dy*dy));
        
+      } else if(obj instanceof Ship && dist(obj.location.x,obj.location.y, location.x,location.y) < 35+size/2 && invTimer > 300) {  // Ship collisions
+        velocity.x = 1*dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
+        velocity.y = 1*dy/sqrt((dx*dx)+(dy*dy));
+        hit = true;
+        invTimer = 0;
+        obj.lives --;
       }
       i++;
     }

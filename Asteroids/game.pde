@@ -7,6 +7,7 @@ void game() {
   
   // GameObjects //
   int i = 0;
+  int lives = myShip.lives;
   while(i < myObjects.size()) {
     gameObject obj = myObjects.get(i);
     int l = obj.lives;
@@ -24,8 +25,8 @@ void game() {
   textSize(35*scaleY);
   text(score+" / "+goal, width-10*scaleX, height-20*scaleY);
   
-  if(score >= goal) {  // Game over, will add fade effect later
-   if(fade == false) fadeCount = 0;  // Resets only the first time
+  if(score >= goal) {  // Game over, win
+   gameend = true;
    fade = true;
    win = true;
    score = goal;
@@ -35,18 +36,31 @@ void game() {
   i = 0;
   String text = "";
   switch(lives) {
-    case 3: text = "A A A"; break;
-    case 2: text = "A A";  break;
-    case 1: text = "A";   break;
-    case 0: break;
+    case 3: text = "A A A"; fill(#63F08A); break;
+    case 2: text = "A A";   fill(#F0BF63); break;
+    case 1: text = "A";     fill(#F06363); break;
+    case 0:   // Game over, lose
+      gameend = true;
+      fade = true;
+      win = false;
+      break;
   }
-  fill(255);
   textAlign(LEFT);
-  text(text, 10*scaleX, height-20*scaleY);
+  text(text, 10*scaleX, height-60*scaleY);
   
+  
+  // Teleport timer //
+  fill(255);
+  float timer = map(myShip.tpTimer, 0,3600, 60,0);
+  if(int(timer) <= 0) {
+    timer = 0;
+    text("teleport ready", 10*scaleX, height-20*scaleY);
+  } else text("teleport in:"+int(timer), 10*scaleX, height-20*scaleY);
   
   // Fade In // 
-  if(fade == true && score != goal) {  // Fade in from intro screen
+  if(fade == true && gameend == false) {  // Fade in from intro screen
+  
+  
     rectMode(CORNER);
     fill(0,map(fadeCount, 0,59,255,0));
     noStroke();
@@ -60,9 +74,11 @@ void game() {
       j++;
     }
     fadeCount++;
-    if(fadeCount == 60) {fade = false;}
+    if(fadeCount == 60) {fadeCount = 0; fade = false;}
     
-  } else if(fade == true && score >= goal) {  // Fade out to gameOver screen
+  } else if(fade == true && gameend == true) {  // Fade out to gameOver screen
+    
+  
     rectMode(CORNER);
     noStroke();
     fill(0,map(fadeCount, 0,59,0,255));
