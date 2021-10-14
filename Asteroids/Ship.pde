@@ -112,6 +112,7 @@ class Ship extends gameObject {
     pushMatrix();
       translate(location.x, location.y);
       if(invTimer < 300) {  // invincibility indicator circle
+        println(invTimer);
         stroke(200);
         strokeWeight(2);
         //circle(0,0, 100);

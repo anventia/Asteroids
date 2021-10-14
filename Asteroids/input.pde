@@ -8,7 +8,7 @@ void mouseClicked() {
 
 
 // Keyboard //
-boolean up, down, left, right, space, zkey;
+boolean up, down, left, right, space, zkey, akey;
 
 void keyPressed() {
   if(keyCode == UP)            up    = true;
@@ -17,6 +17,7 @@ void keyPressed() {
   if(keyCode == RIGHT)         right = true;
   if(key == ' ')               space = true;
   if(key == 'Z' || key == 'z') zkey  = true;
+  if(key == 'A' || key == 'A') akey  = true;
 }
 
 void keyReleased() {
@@ -26,4 +27,5 @@ void keyReleased() {
   if(keyCode == RIGHT)         right = false;
   if(key == ' ')               space = false;
   if(key == 'Z' || key == 'z') zkey  = false;
+  if(key == 'A' || key == 'a') akey  = true;
 }

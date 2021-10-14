@@ -57,6 +57,15 @@ void game() {
     text("teleport ready", 10*scaleX, height-20*scaleY);
   } else text("teleport in:"+int(timer), 10*scaleX, height-20*scaleY);
   
+  
+  // UFO //
+  // test //
+  if(akey) {
+    akey = false;
+    myObjects.add(new UFO());
+  }
+  
+  
   // Fade In // 
   if(fade == true && gameend == false) {  // Fade in from intro screen
   
