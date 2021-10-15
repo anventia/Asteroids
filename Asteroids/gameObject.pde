@@ -10,6 +10,7 @@ class gameObject {
   PVector velocity;  // Velocity
   PVector direction;  // Direction
   
+  String type; // Only for bullet
   
   // Constructor //
   gameObject() {

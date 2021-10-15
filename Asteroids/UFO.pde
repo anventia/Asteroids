@@ -3,17 +3,19 @@ class UFO extends gameObject {
   // Instance Variables //
   int origin;  // which side of the screen does the UFO originate from
   int dir; // direction of travel 
-  float velF;  // Forward velocity  -->
+  float velF;  // Forward velocity in direction of travel  -->
   float velA;  // Alternate velocity  ^
   float deathPos;  // Position to die at
+  int gunTimer;
   
   
   // Constructor //
   UFO() {
     lives = 1;
-    size = 100;
-    velF = random(5,10);
-    velA = random(1,4);
+    gunTimer = 0;
+    size = 50;
+    velF = random(2,5);
+    velA = random(2,5);
     origin = int(random(0,4));  // Pick random side
     switch(origin) {  // Set location, velocity, and direction accordingly
       case 0:  // Top
@@ -21,28 +23,24 @@ class UFO extends gameObject {
         if(location.x < width) dir = -1;  // set direction of travel
         if(location.x >= width) dir = 1;
         velocity = new PVector(velA*dir, velF);  // set velocity
-        deathPos = height+size/2;  // Die at bottom
         break;
       case 1:  // Bottom
         location = new PVector(random(0+size,width-size), height+size/2);  // start at bottom
         if(location.x < width) dir = -1;  // set direction of travel
         if(location.x >= width) dir = 1;
         velocity = new PVector(velA*dir, -velF);  // set velocity
-        deathPos = -size/2;  // Die at top
         break;
       case 2:  // Left
         location = new PVector(-size/2, random(0+size, height-size));  // start at left
         if(location.y < height) dir = -1;  // set direction of travel
         if(location.y >= height) dir = 1;
         velocity = new PVector(velF, velA*dir);  // set velocity
-        deathPos = width+size/2;  // Die at right
         break;
      case 3:  // Right
         location = new PVector(-size/2, random(0+size, height-size));  // start at right
         if(location.y < height) dir = -1;  // set direction of travel
         if(location.y >= height) dir = 1;
         velocity = new PVector(-velF, velA*dir);  // set velocity
-        deathPos = -size/2;  // Die at left
         break;
     }
   }
@@ -53,10 +51,25 @@ class UFO extends gameObject {
     super.act();
     
     
-    // Die //
-    switch(origin) {
-       
+    // Shoot //
+    if(gunTimer > 30) {
+      gunTimer = 0;
+      PVector shootDir = new PVector();
+      float dx = location.x - myShip.location.x;
+      float dy = location.y - myShip.location.y;
+      
+      shootDir.x = -5*dx/sqrt((dx*dx)+(dy*dy));
+      shootDir.y = -5*dy/sqrt((dx*dx)+(dy*dy));
+            
+      myObjects.add(new Bullet("ufo", location, velocity, shootDir));  // Add UFO bullet
     }
+    
+    
+    // Die //
+    if(location.x < -size/2 || location.x > width+size/2 || location.y < -size/2 || location.y > height+size/2) {  // Check if outside screen
+      lives = 0;
+    }
+    gunTimer++;
   }
   
   

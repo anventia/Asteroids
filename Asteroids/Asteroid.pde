@@ -46,39 +46,26 @@ class Asteroid extends gameObject {
       float y2 = obj.location.y; 
       float dx = location.x-x2;  // Distance between objects
       float dy = location.y-y2;
-      if(obj instanceof Bullet && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Bullet collisions
-        switch(size) {
-          case bigAsteroid: 
-            explode(location.x, location.y);
-            myObjects.add(new Asteroid(medAsteroid, location.x, location.y));  // Add two medium asteroids
-            myObjects.add(new Asteroid(medAsteroid, location.x, location.y));
-            break;
-          case medAsteroid:
-            explode(location.x, location.y);
-            myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));  // Add two small asteroids
-            myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
-            break;
-          case smlAsteroid:
-            explode(location.x, location.y);
-            myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));  // Add two tiny asteroids
-            myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));
-            break;
-          case tnyAsteroid:
-            explode(location.x, location.y);
-            break;  // Don't add any more
-        }
-        obj.lives = lives = 0; // Kills asteroid and bullet
-        
+      if(obj instanceof Bullet && obj.type.equals("ship") && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2) {  // Ship Bullet collisions
+        split();
+        if(obj instanceof Bullet) obj.lives = 0;  // Kills bullet
+        lives = 0; // Kills asteroid
+                
       } else if(obj instanceof Asteroid && dist(obj.location.x,obj.location.y, location.x,location.y) < size/2+obj.size/2 && dist(obj.location.x,obj.location.y, location.x,location.y) != 0) {  // Asteroid collisions
         velocity.x = 1*dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
         velocity.y = 1*dy/sqrt((dx*dx)+(dy*dy));
        
-      } else if(obj instanceof Ship && dist(obj.location.x,obj.location.y, location.x,location.y) < 35+size/2 && invTimer > 300) {  // Ship collisions
-        velocity.x = 1*dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
-        velocity.y = 1*dy/sqrt((dx*dx)+(dy*dy));
-        hit = true;
-        invTimer = 0;
-        obj.lives --;
+      } else if(obj instanceof Ship && dist(obj.location.x,obj.location.y, location.x,location.y) < 35+size/2) {  // Ship collisions
+        if(invTimer < 300) {  // Is ship invincible
+          velocity.x = 1*dx/sqrt((dx*dx)+(dy*dy));  // Bounce!
+          velocity.y = 1*dy/sqrt((dx*dx)+(dy*dy));
+        } else {  // Deduct life from ship and split asteroid
+          hit = true;
+          invTimer = 0;  // Make ship invincible
+          obj.lives --;
+          lives = 0;
+          split();
+        }
       }
       i++;
     }
@@ -96,6 +83,31 @@ class Asteroid extends gameObject {
       circle(0,0, size);
       polygon(0,0, size/2-4, poly);
     popMatrix();
+  }
+  
+  
+  // Split //
+  void split() {
+    switch(size) {
+      case bigAsteroid: 
+        explode(location.x, location.y);
+        myObjects.add(new Asteroid(medAsteroid, location.x, location.y));  // Add two medium asteroids
+        myObjects.add(new Asteroid(medAsteroid, location.x, location.y));
+        break;
+      case medAsteroid:
+        explode(location.x, location.y);
+        myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));  // Add two small asteroids
+        myObjects.add(new Asteroid(smlAsteroid, location.x, location.y));
+        break;
+      case smlAsteroid:
+        explode(location.x, location.y);
+        myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));  // Add two tiny asteroids
+        myObjects.add(new Asteroid(tnyAsteroid, location.x, location.y));
+        break;
+      case tnyAsteroid:
+        explode(location.x, location.y);
+        break;  // Don't add any more
+    }  
   }
   
   

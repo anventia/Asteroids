@@ -13,6 +13,7 @@ class Ship extends gameObject {
     smokeTimer = 0;
     spinDirection = 0;
     spinSpeed = 1;
+    size = 70;
     
     location = new PVector(width/2,height/2);  // x,y
     velocity = new PVector(0,0);  // xV, yV
@@ -32,7 +33,7 @@ class Ship extends gameObject {
     
     
     // Bullet //
-    if(space && gunTimer > 20) {myObjects.add(0, new Bullet()); gunTimer = 0;}  // Adds bullets to BEGINNING of arrayList, so they get drawn under the ship.
+    if(space && gunTimer > 20) {myObjects.add(0, new Bullet("ship")); gunTimer = 0;}  // Adds bullets to BEGINNING of arrayList, so they get drawn under the ship.
     
     
     // Teleport to safe spot //
@@ -112,13 +113,12 @@ class Ship extends gameObject {
     pushMatrix();
       translate(location.x, location.y);
       if(invTimer < 300) {  // invincibility indicator circle
-        println(invTimer);
-        stroke(200);
+        stroke(200, map(invTimer, 0,299, 255,0));
         strokeWeight(2);
         //circle(0,0, 100);
         pushMatrix();
           rotate(shield.heading());
-          fill(#4FEFFC, 30);
+          fill(#4FEFFC, map(invTimer, 0,299, 50,0));
           polygon(0,0, 60, 6);
           noFill();
           polygon(0,0, 60, 3);

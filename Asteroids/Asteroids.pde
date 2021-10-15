@@ -40,7 +40,7 @@ final int numSizes = 4;
 void setup() {
   // Setup //
   mode = INTRO;
-  size(1000,700);
+  size(1000,700, P2D);
   background(0);
   surface.setResizable(true);
   surface.setTitle("Asteroids");
