@@ -12,32 +12,32 @@ class UFO extends gameObject {
   // Constructor //
   UFO() {
     lives = 1;
-    gunTimer = 0;
+    gunTimer = 50;
     size = 50;
     velF = random(2,5);
     velA = random(2,5);
     origin = int(random(0,4));  // Pick random side
     switch(origin) {  // Set location, velocity, and direction accordingly
       case 0:  // Top
-        location = new PVector(random(0+size,width-size), -size/2);  // start at top
+        location = new PVector(random(0+size,width-size), -size/2+1);  // start at top
         if(location.x < width) dir = -1;  // set direction of travel
         if(location.x >= width) dir = 1;
         velocity = new PVector(velA*dir, velF);  // set velocity
         break;
       case 1:  // Bottom
-        location = new PVector(random(0+size,width-size), height+size/2);  // start at bottom
+        location = new PVector(random(0+size,width-size), height+size/2-1);  // start at bottom
         if(location.x < width) dir = -1;  // set direction of travel
         if(location.x >= width) dir = 1;
         velocity = new PVector(velA*dir, -velF);  // set velocity
         break;
       case 2:  // Left
-        location = new PVector(-size/2, random(0+size, height-size));  // start at left
+        location = new PVector(-size/2+1, random(0+size, height-size));  // start at left
         if(location.y < height) dir = -1;  // set direction of travel
         if(location.y >= height) dir = 1;
         velocity = new PVector(velF, velA*dir);  // set velocity
         break;
      case 3:  // Right
-        location = new PVector(-size/2, random(0+size, height-size));  // start at right
+        location = new PVector(-size/2-1, random(0+size, height-size));  // start at right
         if(location.y < height) dir = -1;  // set direction of travel
         if(location.y >= height) dir = 1;
         velocity = new PVector(-velF, velA*dir);  // set velocity
@@ -52,7 +52,7 @@ class UFO extends gameObject {
     
     
     // Shoot //
-    if(gunTimer > 30) {
+    if(gunTimer > 50) {
       gunTimer = 0;
       PVector shootDir = new PVector();
       float dx = location.x - myShip.location.x;

@@ -78,6 +78,20 @@ class Ship extends gameObject {
     }
     
     
+    // Detect UFO Bullet collisions //
+    int i = 0;
+    while(i < myObjects.size()) {
+      gameObject obj = myObjects.get(i);
+      if(obj instanceof Bullet && obj.type.equals("ufo") && dist(location.x,location.y, obj.location.x,obj.location.y) < obj.size/2+size/2 && invTimer >= 300) {
+        lives--;
+        obj.lives = 0;
+        invTimer = 0; // Give invincibility
+        hit = true;
+      }
+      i++;
+    }
+    
+    
     // Wraparound screen //
     if(location.x < -55) location.x = width+55;
     if(location.x > width+55) location.x = -55;

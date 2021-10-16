@@ -54,16 +54,19 @@ void game() {
   float timer = map(myShip.tpTimer, 0,3600, 60,0);
   if(int(timer) <= 0) {
     timer = 0;
-    text("teleport ready", 10*scaleX, height-20*scaleY);
-  } else text("teleport in:"+int(timer), 10*scaleX, height-20*scaleY);
+    text("teleport ready [z]", 10*scaleX, height-20*scaleY);
+  } else text("teleport in:"+int(timer)+" [z]", 10*scaleX, height-20*scaleY);
   
   
   // UFO //
-  // test //
-  if(akey) {
-    akey = false;
+  if(ufoTimer >= 600) {  // spawn a UFO every 10 seconds
     myObjects.add(new UFO());
+    if(int(random(0,100)) == 99) myObjects.add(new UFO());  // Spawn a second UFO 1/100 of the time
+    ufoTimer = 0;  // Reset the timer
+    
   }
+  println(ufoTimer);
+  ufoTimer++;
   
   
   // Fade In // 

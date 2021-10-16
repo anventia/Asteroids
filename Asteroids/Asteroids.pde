@@ -21,6 +21,7 @@ int score;
 int goal;
 int lives;
 int invTimer;
+int ufoTimer;
 boolean win;
 boolean gameend;
 boolean hit;
@@ -76,6 +77,7 @@ void initGame() {
   score = 0;
   myShip.lives = 3;
   invTimer = 0;
+  ufoTimer = 0;
   hit = false;
   
   introY1 = 0;  // Reset intro animations

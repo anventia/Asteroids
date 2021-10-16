@@ -17,7 +17,7 @@ class Bullet extends gameObject {
   
   Bullet(String t, PVector l, PVector v, PVector d) {
     type = t;
-    lives = 100;
+    lives = 130;
     size = 10;
     location = l.copy();   
     velocity = d.copy();
@@ -47,6 +47,7 @@ class Bullet extends gameObject {
       translate(location.x,location.y);
       //rotate(direction.heading());
       fill(255);
+      if(type.equals("ufo")) fill(255,0,255);
       noStroke();
       //line(0,0, 10,0);
       circle(0,0, size);
