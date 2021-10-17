@@ -11,6 +11,21 @@ int smokeTimer = 0;
 void intro() {
   background(0);
   
+  int i = 0;
+  while(i < myObjects.size()) {  // Show asteroids in intro
+    gameObject obj = myObjects.get(i);
+    if(obj instanceof Asteroid) {
+      obj.show();
+      obj.act();
+    }
+    i++;
+  }
+  
+  fill(0);
+  noStroke();
+  rectMode(CENTER);
+  rect(width/2,height/2, width, 300*scaleY);  // Box behind text
+  
   // Text //
   fill(0);
   noStroke();
@@ -66,7 +81,7 @@ void intro() {
     
     // Smoke //
     if(smokeTimer > 5) {myObjects.add(0, new Smoke(myShip.location.x+introX3*scaleY, myShip.location.y+introY3*scaleY, myShip.direction.copy(), radians(random(-7,7)))); smokeTimer = 0;}
-    int i = 0;
+    i = 0;
     while(i < myObjects.size()) {
       gameObject s = myObjects.get(i);
       if(s instanceof Smoke) {

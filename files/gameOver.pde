@@ -2,14 +2,15 @@ void gameOver() {
   
   background(0);
     
-  String text = "";  // Changes text based on win or loss
+  String text = "";  // Changes text and color based on win or loss
   String text2 = "";
-  if(win) {text = "you win!";  text2 = myShip.lives+" / 3 lives left";}
-  else    {text = "you lose!"; text2 = score+" / "+goal+" asteroids destroyed";}
+  color clr = 0;
+  if(win) {text = "you win!";  text2 = myShip.lives+" / 3 lives left";          clr = #43FF57;}
+  else    {text = "you lose!"; text2 = score+" / "+goal+" asteroids destroyed"; clr = #FF4343;}
   
   textSize(100);
   textAlign(CENTER);
-  fill(255);
+  fill(clr);
   text(text, width/2,height/2);  // Title text
   
   fill(0);
