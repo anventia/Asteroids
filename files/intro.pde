@@ -52,6 +52,9 @@ void intro() {
   textSize(50*scaleY);
   text("- pl y -", width/2,height/2+100*scaleY+introY2);  // Play button text
   
+  textSize(20*scaleY);
+  text("press ESC to pause", width/2, height*0.9);
+  
   // Fade //
   if(fade && gameend == true) {  // Fade from gameOver screen
     gif();
