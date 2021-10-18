@@ -49,7 +49,7 @@ class UFO extends gameObject {
   // Act //
   void act() {
     super.act();
-    
+      
     
     // Shoot //
     if(gunTimer > 50) {
@@ -65,7 +65,18 @@ class UFO extends gameObject {
     }
     
     
-    // Die //
+    // Die from bullets //
+    int i = 0;
+    while(i < myObjects.size()) {
+      gameObject obj = myObjects.get(i);
+      if(obj instanceof Bullet && obj.type.equals("ship") && dist(location.x,location.y, obj.location.x,obj.location.y) < size/2+obj.size/2) {  // Only collide with Ship Bullets
+        lives = 0;
+      }
+      i++;
+    }
+    
+    
+    // Die off screen //
     if(location.x < -size/2 || location.x > width+size/2 || location.y < -size/2 || location.y > height+size/2) {  // Check if outside screen
       lives = 0;
     }
