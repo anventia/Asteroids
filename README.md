@@ -7,3 +7,5 @@ Uses things from my [Processing Utilities](https://github.com/anventia/Processin
 Download ZIP to run project
 
 `files` folder for viewing code directly in GitHub
+
+Warning: The transition GIF effect might lag / play slowly
